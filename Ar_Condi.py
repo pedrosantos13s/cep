@@ -33,7 +33,7 @@ def ar_cond():
     #print (visc_Flu)
 
     dic = {}
-    dic["temperatura_extena"] = temp_Ext[0]
+    dic["temperatura_externa"] = temp_Ext[0]
     dic["temperatura_interna"] = temp_Int[0]
     dic["vcc"] = vcc[0]
     dic["temperatura_setada"] = temp_Set[0]
