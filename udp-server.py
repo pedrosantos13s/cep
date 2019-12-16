@@ -32,7 +32,6 @@ for i in range(4):
     ax_list[i].set_xlim(0, janela+1)
 
 fig.show()
-ax1.set_xlim(0, janela+1)
 
 while True:
     # Receber resposta
@@ -49,17 +48,17 @@ while True:
     y4.append(json_dic["temperatura_setada"])
     y5.append(json_dic["viscosidade_fluido"])
 
-    ax1.plot(x, y1, color='b')
-    ax2.plot(x, y2, color='b')
-    ax3.plot(x, y3, color='b')
-    ax4.plot(x, y4, color='b')
+    ax_list[0].plot(x, y1, color='b')
+    ax_list[1].plot(x, y2, color='b')
+    ax_list[2].plot(x, y3, color='b')
+    ax_list[3].plot(x, y4, color='b')
     
     fig.canvas.draw()
 
     i += 1
     if i > janela:
-        ax1.set_xlim(i-janela, i+1)
-        ax2.set_xlim(i-janela, i+1)
-        ax3.set_xlim(i-janela, i+1)
-        ax4.set_xlim(i-janela, i+1)
+        ax_list[0].set_xlim(i-janela, i+1)
+        ax_list[1].set_xlim(i-janela, i+1)
+        ax_list[2].set_xlim(i-janela, i+1)
+        ax_list[3].set_xlim(i-janela, i+1)
         
