@@ -2,35 +2,24 @@ import numpy
 import json 
 from socket import *
 from threading import Timer
-n=1
-##Gerar numeros aleatorios##
-def ar_cond():
-    ## Gera aleatorios distribuição normal centrado em 20 vai até 10~30, 50 valores##
-    temp_Ext = numpy.random.normal(20,3.33,n)  
-    #print (temp_Ext)
 
+def ar_val():
 
-    ## Gera aleatorios distribuição normal centrado em 35 vai até 0~70, 50 valores##
+    temp_Ext = 31
+    while temp_Ext > 30 or temp_Ext < 0: 
+        temp_Ext = numpy.random.normal(20,6.66,1)
 
-    temp_Int = numpy.random.normal(35,11.66,n)  
-    #print (temp_Int)
+    temp_Int = numpy.random.normal(35,11.66,1)  
 
+    vcc = 26
+    while vcc > 25 or vcc < 8:
+        vcc = numpy.random.normal(12,4.33,1)  
 
-    ## Gera aleatorios distribuição normal centrado em 12 vai até 8~16, 50 valores##
+    temp_Set = temp_Ext * 3
+    while temp_Set > 2.2*temp_Ext or temp_Set < 0.3*temp_Ext:
+        temp_Set = numpy.random.normal(temp_Ext,0.4*temp_Ext,1)
 
-    vcc = numpy.random.normal(12,1.33,n)  
-    #print (vcc)
-
-    ## Gera aleatorios distribuição normal centrado em temp_Ext vai até (temp_Ext * 0.3~1.7), 50 valores##
-    ## Temp Ext * normal
-    temp_Set = numpy.random.normal(temp_Ext,0.23*temp_Ext,n)  
-    #print (temp_Set)
-
-
-    ## Gera aleatorios distribuição normal centrado em 0.001002 vai até ~, 50 valores##
-
-    visc_Flu = numpy.random.normal(0.001002,0.0001002,n)  
-    #print (visc_Flu)
+    visc_Flu = numpy.random.normal(0.001002,0.0001002,1)  
 
     dic = {}
     dic["temperatura_externa"] = temp_Ext[0]
@@ -39,23 +28,24 @@ def ar_cond():
     dic["temperatura_setada"] = temp_Set[0]
     dic["viscosidade_fluido"] = visc_Flu[0]
 
+    return dic
+
+def ar_msg():
+
+    dic = ar_val()
     encoder = json.JSONEncoder()
-    str_dic = encoder.encode(dic)   # Isso é um STR
+    str_dic = encoder.encode(dic)
     print(type(str_dic))
     print(str_dic)
-
-    ##Enviar para o outro programa
-
     msg = str_dic.encode()
     skt.sendto(msg,(ip,porta))
 
-    
+def ar_cond():
 
-    ##Contagem para cada 5 segundos
+    ar_msg()
     Timer(5, ar_cond).start()
 
-
-
+    
 IPV4 = AF_INET
 UDP = SOCK_DGRAM
 TCP = SOCK_STREAM
@@ -66,5 +56,3 @@ ip = input("insira o IP de destino: ")
 porta = int(input("Insira a porta de destino: "))
 
 ar_cond()
-
-
