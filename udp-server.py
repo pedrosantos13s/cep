@@ -25,15 +25,11 @@ i = 0
 janela = 10
 
 fig = plt.figure()
+fig, ax_list = fig.add_subplot(2, 2)
 
-ax1 = fig.add_subplot(2, 2, 1)
-ax1.set_xlim(0, janela+1)
-ax2 = fig.add_subplot(2, 2, 2)
-ax2.set_xlim(0, janela+1)
-ax3 = fig.add_subplot(2, 2, 3)
-ax3.set_xlim(0, janela+1)
-ax4 = fig.add_subplot(2, 2, 4)
-ax4.set_xlim(0, janela+1)
+for i in range(4):
+    ax_list[i] = fig.add_subplot(2, 2, i+1)
+    ax_list[i].set_xlim(0, janela+1)
 
 fig.show()
 ax1.set_xlim(0, janela+1)
@@ -44,7 +40,9 @@ while True:
     msg, adr = skt.recvfrom(1024)
     json_dic = convert_str_json(msg)
 
+    header = json_dic.keys()
     x.append(i)
+    
     y1.append(json_dic["temperatura_externa"])
     y2.append(json_dic["temperatura_interna"])
     y3.append(json_dic["vcc"])
